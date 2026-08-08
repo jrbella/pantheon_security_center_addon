@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="b71d5fc293ee8f50fca235018bba10e1" label="grant_inventory" max_length="40" name="x_1906124_pantheon_grant_inventory" type="collection">
+        <element choice="3" label="Source Type" max_length="40" name="source_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="containment" sequence="2" value="containment"/>
+                <element inactive_on_update="false" label="direct" sequence="0" value="direct"/>
+                <element inactive_on_update="false" label="group" sequence="1" value="group"/>
+            </choice>
+        </element>
+        <element label="Is inherited" max_length="40" name="is_inherited" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="role" max_length="32" name="role" reference="sys_user_has_role" type="reference"/>
+        <element label="Source Record" max_length="40" name="source_record" type="string"/>
+        <element label="user" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element label="Corrupted On" max_length="40" name="corrupted_on" type="glide_date_time"/>
+        <index name="index">
+            <element name="role"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+            <element name="role"/>
+        </index>
+    </element>
+</database>

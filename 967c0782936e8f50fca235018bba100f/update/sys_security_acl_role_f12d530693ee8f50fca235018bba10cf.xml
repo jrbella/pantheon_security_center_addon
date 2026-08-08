@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-08 17:03:20</sys_created_on>
+        <sys_id>f12d530693ee8f50fca235018bba10cf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1906124_pantheon_grant_inventory.x_1906124_pantheon.admin</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_security_acl display_value="x_1906124_pantheon_grant_inventory">b92d530693ee8f50fca235018bba10ad</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_f12d530693ee8f50fca235018bba10cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-08 17:03:20</sys_updated_on>
+        <sys_user_role display_value="x_1906124_pantheon.admin" name="x_1906124_pantheon.admin">767c0782936e8f50fca235018bba1084</sys_user_role>
+    </sys_security_acl_role>
+</record_update>
