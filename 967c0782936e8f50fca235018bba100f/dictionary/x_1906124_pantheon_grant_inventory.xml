@@ -10,13 +10,17 @@
         <element label="Is inherited" max_length="40" name="is_inherited" type="boolean"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="role" max_length="32" name="role" reference="sys_user_has_role" type="reference"/>
+        <element label="Granting group" max_length="32" name="granting_group" reference="sys_user_group" type="reference"/>
         <element label="Source Record" max_length="40" name="source_record" type="string"/>
         <element label="user" max_length="32" name="user" reference="sys_user" type="reference"/>
-        <element label="Corrupted On" max_length="40" name="corrupted_on" type="glide_date_time"/>
+        <element label="Computed On" max_length="40" name="computed_on" type="glide_date_time"/>
         <index name="index">
-            <element name="role"/>
+            <element name="granting_group"/>
         </index>
         <index name="index2">
+            <element name="role"/>
+        </index>
+        <index name="index3">
             <element name="user"/>
             <element name="role"/>
         </index>
