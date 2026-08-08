@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1906124_pantheon.GrantInventoryBuilder</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Materializes grant_inventory from platform sources. Reads direct role assignments from sys_user_has_role where inherited is false, and group-derived roles by joining sys_user_grmember to sys_group_has_role, walking group parent chains since nested groups propagate roles. Writes one row per user-role-source combination with source_record set to the group the user is actually a member of, not the ancestor that carries the role, so that revoke actions point at something actionable. Role containment is deliberately not expanded here; it is resolved on demand for explanation only, because containment produces identical expansions for every holder and therefore carries no peer-comparison signal. Truncates and rebuilds on each run. Called by the peer analysis scheduled job.</description>
+        <mobile_callable>false</mobile_callable>
+        <name>GrantInventoryBuilder</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var GrantInventoryBuilder = Class.create();
+GrantInventoryBuilder.prototype = {
+
+    /**
+     * Independent recomputation of effective grants, for verification
+     * against sys_user_has_role. Deliberately does NOT read the
+     * platform's inherited rows — that is the thing being verified.
+     *
+     * Generational rebuild: rows are stamped with computed_on, the new
+     * generation is inserted in full, then prior generations are purged.
+     * No empty-table window; a failed run leaves the previous
+     * generation intact.
+     *
+     * CONSUMER CONTRACT: query where computed_on = max(computed_on).
+     * A build that dies partway leaves a partial generation alongside
+     * the previous complete one; screens that skip the filter will show
+     * a mix of two generations. (On module 1 build checklist.)
+     *
+     * PREREQUISITES (instance side, before first run):
+     *   - granting_group field on the inventory table (reference -> sys_user_group)
+     *   - 'containment' present in the source_type choice list
+     *   - one-record verification of sys_role_contains column names
+     *
+     * options.expandContainment (default false):
+     *   When false, roles are recorded as granted — no sys_role_contains
+     *   expansion. Expansion is identical for every holder of a parent
+     *   role, so it carries no peer-comparison signal for module 1 and
+     *   inflates the table (one admin grant -> 123 effective roles).
+     *   Modules 2/3 opt in explicitly when they need effective access.
+     */
+    initialize: function (options) {
+        options = options || {};
+        this.expandContainment = options.expandContainment === true;
+
+        this.computedOn = new GlideDateTime();
+        this.table = 'x_1906124_pantheon_grant_inventory';
+
+        this._parentMap = null;   // group sys_id -> parent group sys_id
+        this._containsMap = null; // role sys_id -> [contained role sys_ids]
+
+        // Dedupe is per-user AND per-method BY DESIGN. buildDirect and
+        // buildFromGroups each flush this on user change and never share
+        // it. The same role arriving both directly and via group
+        // produces two rows — that redundant-grant overlap is the
+        // signal this inventory exists to surface, not a leak.
+        this._seen = {};
+    },
+
+    build: function () {
+        var direct = this.buildDirect();
+        var group  = this.buildFromGroups();
+        var purged = this._purgeStale();
+        gs.info('PANTHEON | build complete | direct=' + direct +
+                ' group=' + group + ' purged=' + purged +
+                ' expandContainment=' + this.expandContainment);
+        return { direct: direct, group: group };
+    },
+
+    buildDirect: function () {
+        var count = 0;
+        var lastUser = null;
+
+        var src = new GlideRecord('sys_user_has_role');
+        src.addQuery('inherited', false);
+        src.orderBy('user');
+        src.query();
+
+        while (src.next()) {
+            var userId = src.getValue('user');
+            if (userId !== lastUser) {
+                this._seen = {};
+                lastUser = userId;
+            }
+
+            var grantedRole = src.getValue('role');
+            var roles = this.expandContainment
+                ? this._expandRole(grantedRole)
+                : [grantedRole];
+
+            for (var i = 0; i < roles.length; i++) {
+                var isGranted = (i === 0); // _expandRole puts the granted role at index 0
+                count += this._insertGrant({
+                    user: userId,
+                    role: roles[i],
+                    is_inherited: !isGranted,
+                    source_type: isGranted ? 'direct' : 'containment',
+                    source_record: isGranted ? '' : grantedRole,
+                    granting_group: ''
+                });
+            }
+        }
+        return count;
+    },
+
+    buildFromGroups: function () {
+        var count = 0;
+        var lastUser = null;
+
+        var member = new GlideRecord('sys_user_grmember');
+        member.orderBy('user');
+        member.query();
+
+        while (member.next()) {
+            var userId = member.getValue('user');
+            if (userId !== lastUser) {
+                this._seen = {};
+                lastUser = userId;
+            }
+
+            var membershipGroup = member.getValue('group');
+            var groups = this._ancestors(membershipGroup);
+
+            for (var g = 0; g < groups.length; g++) {
+
+                var groupRole = new GlideRecord('sys_group_has_role');
+                groupRole.addQuery('group', groups[g]);
+                groupRole.addQuery('inherits', true);
+                groupRole.query();
+
+                while (groupRole.next()) {
+                    var grantedRole = groupRole.getValue('role');
+                    var roles = this.expandContainment
+                        ? this._expandRole(grantedRole)
+                        : [grantedRole];
+
+                    for (var r = 0; r < roles.length; r++) {
+                        var isGranted = (r === 0);
+                        count += this._insertGrant({
+                            user: userId,
+                            role: roles[r],
+                            is_inherited: true,
+                            source_type: isGranted ? 'group' : 'containment',
+                            // group rows: how the user got in.
+                            // containment rows: the parent role that pulled this one in.
+                            source_record: isGranted ? membershipGroup : grantedRole,
+                            granting_group: groups[g]
+                        });
+                    }
+                }
+            }
+        }
+        return count;
+    },
+
+    _insertGrant: function (grant) {
+        // source_record is in the key deliberately: a role reached via
+        // two different parents/paths produces two rows with distinct
+        // provenance. That multi-path signal is the point.
+        var key = grant.user + '|' + grant.role + '|' + grant.source_type +
+                  '|' + grant.source_record + '|' + grant.granting_group;
+        if (this._seen[key]) {
+            return 0;
+        }
+        this._seen[key] = true;
+
+        var row = new GlideRecord(this.table);
+        row.initialize();
+        row.setWorkflow(false);
+        row.setValue('user', grant.user);
+        row.setValue('role', grant.role);
+        row.setValue('is_inherited', grant.is_inherited);
+        row.setValue('source_type', grant.source_type);
+        row.setValue('source_record', grant.source_record);
+        row.setValue('granting_group', grant.granting_group);
+        row.setValue('computed_on', this.computedOn);
+        return row.insert() ? 1 : 0;
+    },
+
+    // Group plus every ancestor above it. One query total, cycle-safe.
+    _ancestors: function (groupId) {
+        if (!this._parentMap) {
+            this._parentMap = {};
+            var gr = new GlideRecord('sys_user_group');
+            gr.query();
+            while (gr.next()) {
+                this._parentMap[gr.getUniqueValue()] = gr.getValue('parent');
+            }
+        }
+
+        var chain = [];
+        var current = groupId;
+        while (current && chain.indexOf(current) === -1) {
+            chain.push(current);
+            current = this._parentMap[current] || null;
+        }
+        return chain;
+    },
+
+    // Role plus everything it transitively contains. Granted role is
+    // ALWAYS index 0 — callers depend on this for source_type/
+    // source_record assignment. It holds because roleId is pushed first
+    // and the visited-check runs at pop time, so even in a cycle the
+    // granted role lands in result before anything else. Do not
+    // "optimize" the traversal without preserving this contract.
+    _expandRole: function (roleId) {
+        if (!this._containsMap) {
+            this._containsMap = {};
+            var gr = new GlideRecord('sys_role_contains');
+            gr.query();
+            var rowsReturned = gr.getRowCount();
+            while (gr.next()) {
+                var parent = gr.getValue('role');
+                var child  = gr.getValue('contains');
+                if (!parent || !child) {
+                    continue; // wrong column name yields nulls; skip, catch below
+                }
+                if (!this._containsMap[parent]) {
+                    this._containsMap[parent] = [];
+                }
+                this._containsMap[parent].push(child);
+            }
+            // Two silent-failure modes, one check each:
+            //   rows == 0        -> table unreadable (ACL / cross-scope)
+            //   rows > 0, map {} -> table readable but column names wrong
+            if (rowsReturned === 0) {
+                gs.warn('PANTHEON | sys_role_contains returned 0 rows — ' +
+                        'verify cross-scope read access');
+            } else if (Object.keys(this._containsMap).length === 0) {
+                gs.warn('PANTHEON | sys_role_contains readable but map is ' +
+                        'empty — column names wrong');
+            }
+        }
+
+        var result = [];
+        var stack = [roleId];
+        while (stack.length) {
+            var role = stack.pop();
+            if (result.indexOf(role) !== -1) {
+                continue;
+            }
+            result.push(role);
+            var children = this._containsMap[role] || [];
+            for (var i = 0; i < children.length; i++) {
+                stack.push(children[i]);
+            }
+        }
+        return result;
+    },
+
+    // TODO: orphaned-generation cleanup (scheduled reaper). Interim
+    // mitigation is the consumer contract in the class doc comment.
+    // NOTE: getRowCount() before deleteMultiple() is an extra full scan
+    // purely for the log line — fine on PDI, drop it or switch to
+    // GlideAggregate if this graduates to volume.
+    _purgeStale: function () {
+        var gr = new GlideRecord(this.table);
+        gr.addQuery('computed_on', '!=', this.computedOn.getValue());
+        gr.setWorkflow(false);
+        gr.query();
+        var n = gr.getRowCount();
+        gr.deleteMultiple();
+        return n;
+    },
+
+    type: 'GrantInventoryBuilder'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-08 17:56:21</sys_created_on>
+        <sys_id>c198230e9322cf50fca235018bba1032</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GrantInventoryBuilder</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_script_include_c198230e9322cf50fca235018bba1032</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-08 19:16:20</sys_updated_on>
+    </sys_script_include>
+</record_update>
