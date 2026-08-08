@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="0013c8129326cf50fca235018bba1042" label="peer_group" max_length="40" name="x_1906124_pantheon_peer_group" type="collection">
+        <element label="Member count" max_length="40" name="member_count" type="integer"/>
+        <element label="Group key" max_length="40" name="group_key" type="string"/>
+        <element label="Computed on" max_length="40" name="computed_on" type="glide_date_time"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Label" max_length="40" name="label" type="string"/>
+    </element>
+</database>

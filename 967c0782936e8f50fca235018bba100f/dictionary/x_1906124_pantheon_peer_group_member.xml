@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="ef75c8569326cf50fca235018bba10bd" label="peer_group_member" max_length="40" name="x_1906124_pantheon_peer_group_member" type="collection">
+        <element label="Computed on" max_length="40" name="computed_on" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element label="Peer Group" max_length="32" name="peer_group" reference="x_1906124_pantheon_peer_group" type="reference"/>
+        <index name="index">
+            <element name="peer_group"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>
