@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="x_1906124_pantheon.analyst" name="x_1906124_pantheon.analyst">e67c0782936e8f50fca235018bba1078</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-08 15:50:29</sys_created_on>
+        <sys_id>767c0782936e8f50fca235018bba107d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>e67c0782936e8f50fca235018bba1078</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_embedded_help_role_767c0782936e8f50fca235018bba107d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-08 15:50:29</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>
