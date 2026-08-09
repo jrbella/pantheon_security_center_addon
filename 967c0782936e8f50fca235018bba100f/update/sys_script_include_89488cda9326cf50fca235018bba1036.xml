@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1906124_pantheon.PeerGroupBuilder</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Materializes peer_group and peer_group_member from user attributes. Clusters users by the attributes named in the clustering property, defaulting to department. Users with no value for a clustering attribute are excluded, since a group of users with nothing in common is not a peer group; this notably excludes service and integration accounts, which is a known gap. Generational rebuild stamped with computed_on, matching GrantInventoryBuilder. Groups below the minimum size property produce no records, because a peer comparison against a handful of people is not evidence. Called by the peer analysis scheduled job.</description>
+        <mobile_callable>false</mobile_callable>
+        <name>PeerGroupBuilder</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var PeerGroupBuilder = Class.create();
+PeerGroupBuilder.prototype = {
+
+    /**
+     * Materializes peer_group and peer_group_member from user
+     * attributes. Clusters users by the attributes named in the
+     * clustering property (default: department). Users with no value
+     * for a clustering attribute are excluded — a group of users with
+     * nothing in common is not a peer group. This notably excludes
+     * service and integration accounts (known gap).
+     *
+     * CLUSTERING MODEL: overlap, not intersection. Each attribute in
+     * the clustering property produces its own independent grouping —
+     * a user with a department and a title belongs to two peer groups.
+     * "Service Desk Tier 2" as a single intersected cohort is NOT this
+     * model. Consequence for consumers: every finding MUST name the
+     * peer group it was computed against, and member_count means
+     * "members of this group," never "this person's peers." Revisit
+     * for customers if the intersection model is wanted; the switch is
+     * the key construction in _loadUsers.
+     *
+     * Groups below the minimum size property produce no records: a
+     * peer comparison against a handful of people is not evidence.
+     *
+     * Generational rebuild stamped with computed_on, matching
+     * GrantInventoryBuilder. CONSUMER CONTRACT: query where
+     * computed_on = max(computed_on).
+     *
+     * Called by the peer analysis scheduled job.
+     */
+    initialize: function () {
+        this.computedOn = new GlideDateTime();
+        this.groupTable  = 'x_1906124_pantheon_peer_group';
+        this.memberTable = 'x_1906124_pantheon_peer_group_member';
+
+        // Properties arrive as strings; parse and default defensively.
+        var rawMin = gs.getProperty('x_1906124_pantheon.peer.min_group_size', '5');
+        this.minGroupSize = parseInt(rawMin, 10);
+        if (isNaN(this.minGroupSize) || this.minGroupSize < 1) {
+            gs.warn('PANTHEON | min_group_size property unparseable (' +
+                    rawMin + ') — defaulting to 5');
+            this.minGroupSize = 5;
+        }
+
+        var rawAttrs = gs.getProperty(
+            'x_1906124_pantheon.peer.clustering_attributes', 'department');
+        this.clusterAttributes = rawAttrs.split(',')
+            .map(function (a) { return a.trim(); })
+            .filter(function (a) { return a.length > 0; });
+    },
+
+    build: function () {
+        var buckets = this._loadUsers();
+        var written = this._writeGroups(buckets);
+        var purged  = this._purgeStale();
+        gs.info('PANTHEON | peer build complete | groups=' + written.groups +
+                ' members=' + written.members +
+                ' skippedSmall=' + written.skippedSmall +
+                ' purged=' + purged +
+                ' minSize=' + this.minGroupSize +
+                ' attrs=' + this.clusterAttributes.join(','));
+        return written;
+    },
+
+    // Pass 1: one query, one loop. Buckets keyed by attribute|value so
+    // multiple clustering attributes coexist without key collisions
+    // (see CLUSTERING MODEL above).
+    // Each bucket: { label: display value, members: [user sys_ids] }
+    _loadUsers: function () {
+        var buckets = {};
+        var attrs = this.clusterAttributes;
+
+        var gr = new GlideRecord('sys_user');
+        gr.addActiveQuery();
+        gr.query();
+
+        while (gr.next()) {
+            for (var i = 0; i < attrs.length; i++) {
+                var attr = attrs[i];
+                var value = gr.getValue(attr);
+                if (!value) {
+                    continue; // no value -> not in any peer group for this attribute
+                }
+                var key = attr + '|' + value;
+                if (!buckets[key]) {
+                    buckets[key] = {
+                        label: gr.getDisplayValue(attr),
+                        members: []
+                    };
+                }
+                buckets[key].members.push(gr.getUniqueValue());
+            }
+        }
+        return buckets;
+    },
+
+    // Passes 2 and 3: one peer_group row per qualifying bucket, then
+    // one peer_group_member row per user in it.
+    _writeGroups: function (buckets) {
+        var groups = 0;
+        var members = 0;
+        var skippedSmall = 0;
+
+        for (var key in buckets) {
+            if (!buckets.hasOwnProperty(key)) {
+                continue;
+            }
+            var bucket = buckets[key];
+
+            if (bucket.members.length < this.minGroupSize) {
+                skippedSmall++;
+                continue; // below threshold: no records at all, by design
+            }
+
+            var group = new GlideRecord(this.groupTable);
+            group.initialize();
+            group.setWorkflow(false);
+            group.setValue('group_key', key);
+            group.setValue('label', bucket.label);
+            group.setValue('member_count', bucket.members.length);
+            group.setValue('computed_on', this.computedOn);
+            var groupId = group.insert();
+
+            if (!groupId) {
+                gs.warn('PANTHEON | peer_group insert failed for key=' + key);
+                continue; // don't write orphaned members
+            }
+            groups++;
+
+            for (var m = 0; m < bucket.members.length; m++) {
+                var member = new GlideRecord(this.memberTable);
+                member.initialize();
+                member.setWorkflow(false);
+                member.setValue('peer_group', groupId);
+                member.setValue('user', bucket.members[m]);
+                member.setValue('computed_on', this.computedOn);
+                if (member.insert()) {
+                    members++;
+                }
+            }
+        }
+
+        return { groups: groups, members: members, skippedSmall: skippedSmall };
+    },
+
+    // Members purged before groups so no stale member row ever
+    // references a deleted group mid-purge.
+    _purgeStale: function () {
+        var purged = 0;
+        var tables = [this.memberTable, this.groupTable];
+        for (var i = 0; i < tables.length; i++) {
+            var gr = new GlideRecord(tables[i]);
+            gr.addQuery('computed_on', '!=', this.computedOn.getValue());
+            gr.setWorkflow(false);
+            gr.query();
+            purged += gr.getRowCount();
+            gr.deleteMultiple();
+        }
+        return purged;
+    },
+
+    type: 'PeerGroupBuilder'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-08 20:19:20</sys_created_on>
+        <sys_id>89488cda9326cf50fca235018bba1036</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PeerGroupBuilder</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_script_include_89488cda9326cf50fca235018bba1036</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-08 20:19:20</sys_updated_on>
+    </sys_script_include>
+</record_update>

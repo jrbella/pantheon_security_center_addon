@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Test the script includes PeerGroupBuilder's build method</description>
+        <name>PeerGroupBuilderBuild Tester</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[new PeerGroupBuilder().build();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-08 20:20:35</sys_created_on>
+        <sys_id>8b1ac4de9326cf50fca235018bba10d9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PeerGroupBuilderBuild Tester</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_script_fix_8b1ac4de9326cf50fca235018bba10d9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-08 20:20:35</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
