@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_application">
+    <sys_ui_application action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <hint/>
+        <name>Pantheon</name>
+        <order>100</order>
+        <roles/>
+        <sys_class_name>sys_ui_application</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-12 12:31:29</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>9b2587d793a6c710fca235018bba10d5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Pantheon</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_ui_application_9b2587d793a6c710fca235018bba10d5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-12 12:31:29</sys_updated_on>
+    </sys_ui_application>
+</record_update>
