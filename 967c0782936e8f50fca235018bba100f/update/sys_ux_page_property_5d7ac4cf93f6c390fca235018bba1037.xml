@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property">
+    <sys_ux_page_property action="INSERT_OR_UPDATE">
+        <choices/>
+        <description/>
+        <name>alert_auto_dismiss_config</name>
+        <page display_value="Pantheon">61f5480793f6c390fca235018bba103e</page>
+        <required_translations/>
+        <route/>
+        <suffix/>
+        <sys_class_name>sys_ux_page_property</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-23 14:32:25</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>global</sys_domain_path>
+        <sys_id>5d7ac4cf93f6c390fca235018bba1037</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>alert_auto_dismiss_config</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_ux_page_property_5d7ac4cf93f6c390fca235018bba1037</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-23 14:32:25</sys_updated_on>
+        <type>string</type>
+        <unique_name>x_1906124_pantheon.61f5480793f6c390fca235018bba103e.root.global.alert_auto_dismiss_config</unique_name>
+        <value>{}</value>
+    </sys_ux_page_property>
+    <sys_translated_text action="delete_multiple" query="documentkey=5d7ac4cf93f6c390fca235018bba1037"/>
+</record_update>

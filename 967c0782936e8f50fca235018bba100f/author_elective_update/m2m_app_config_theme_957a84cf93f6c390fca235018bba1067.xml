@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="m2m_app_config_theme">
+    <m2m_app_config_theme action="DELETE">
+        <applicability/>
+        <order>0</order>
+        <sys_class_name>m2m_app_config_theme</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-23 14:32:25</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>957a84cf93f6c390fca235018bba1067</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>m2m_app_config_theme_957a84cf93f6c390fca235018bba1067</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-23 14:32:25</sys_updated_on>
+        <theme/>
+        <ux_app_configuration display_value="Pantheon">7cf5480793f6c390fca235018bba1037</ux_app_configuration>
+    </m2m_app_config_theme>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Pantheon">967c0782936e8f50fca235018bba100f</application>
+        <file_path/>
+        <instance_id>a8769b1feb5c03143a48f459bad0cd6b</instance_id>
+        <instance_name>dev388275</instance_name>
+        <name>m2m_app_config_theme_957a84cf93f6c390fca235018bba1067</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="m2m_app_config_theme"><m2m_app_config_theme action="INSERT_OR_UPDATE"><applicability/><order>0</order><sys_class_name>m2m_app_config_theme</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-08-23 14:32:25</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>957a84cf93f6c390fca235018bba1067</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_overrides/><sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package><sys_policy/><sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope><sys_update_name>m2m_app_config_theme_957a84cf93f6c390fca235018bba1067</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-08-23 14:32:25</sys_updated_on><theme/><ux_app_configuration display_value="Pantheon">7cf5480793f6c390fca235018bba1037</ux_app_configuration></m2m_app_config_theme></record_update>]]></payload>
+        <payload_hash>1455373940</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>a5a09f8a936e8f50fca235018bba10d8</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-23 14:32:25</sys_created_on>
+        <sys_id>197ac4cf93f6c390fca235018bba1026</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1a02f097a740000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-23 14:32:25</sys_updated_on>
+        <type>UX App Theme</type>
+        <update_guid>957ac4cf69f6c390a01ae1ff5ea25a25</update_guid>
+        <update_guid_history>957ac4cf69f6c390a01ae1ff5ea25a25:1455373940</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">d57c8c83933ac390fca235018bba1077</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-23 14:41:10</sys_created_on>
+        <sys_db_object display_value="" name="m2m_app_config_theme">m2m_app_config_theme</sys_db_object>
+        <sys_id>7479ea40e1684ed4bd66178dbc166210</sys_id>
+        <sys_metadata>957a84cf93f6c390fca235018bba1067</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_scope_delete display_value="">2f669b95508d41c3b25ae59ff3138001</sys_scope_delete>
+        <sys_update_name>m2m_app_config_theme_957a84cf93f6c390fca235018bba1067</sys_update_name>
+        <sys_update_version display_value="m2m_app_config_theme_957a84cf93f6c390fca235018bba1067">197ac4cf93f6c390fca235018bba1026</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-23 14:41:10</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

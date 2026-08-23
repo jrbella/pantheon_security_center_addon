@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role_contains">
+    <sys_user_role_contains action="INSERT_OR_UPDATE">
+        <contains display_value="x_1906124_pantheon.reader" name="x_1906124_pantheon.reader">fa7c0782936e8f50fca235018bba108c</contains>
+        <role display_value="x_1906124_pantheon.analyst" name="x_1906124_pantheon.analyst">e67c0782936e8f50fca235018bba1078</role>
+        <sys_class_name>sys_user_role_contains</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-12 12:17:17</sys_created_on>
+        <sys_id>2e024b1393a6c710fca235018bba10a2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1906124_pantheon.reader.x_1906124_pantheon.analyst</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_user_role_contains_2e024b1393a6c710fca235018bba10a2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-12 12:17:17</sys_updated_on>
+    </sys_user_role_contains>
+</record_update>

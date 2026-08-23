@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Read-only diagnostic. Independently recounts every finding in the current generation against grant_inventory and reports mismatches, plus the role and group distribution. Writes nothing, safe to re-run</description>
+        <name>Verify outlier findings against grant in</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[// PANTHEON | verify all outlier findings against grant_inventory
+//
+// Independently recounts every finding in the current generation and
+// compares to the stored values. Also reports the role distribution,
+// which is the first honest read on whether the outlier definition
+// produces signal or noise: a few roles accounting for most findings
+// suggests legitimate specialist assignments rather than anomalies.
+//
+// Read-only. Writes nothing. Safe to re-run.
+
+(function verifyFindings() {
+
+    var FINDING   = 'x_1906124_pantheon_outlier_finding';
+    var MEMBER    = 'x_1906124_pantheon_peer_group_member';
+    var INVENTORY = 'x_1906124_pantheon_grant_inventory';
+
+    function currentGeneration(table) {
+        var gr = new GlideRecord(table);
+        gr.orderByDesc('computed_on');
+        gr.setLimit(1);
+        gr.query();
+        return gr.next() ? gr.getValue('computed_on') : null;
+    }
+
+    var findGen = currentGeneration(FINDING);
+    var memGen  = currentGeneration(MEMBER);
+    var invGen  = currentGeneration(INVENTORY);
+
+    if (!findGen || !memGen || !invGen) {
+        gs.info('PANTHEON VERIFY | aborted, empty source table');
+        return;
+    }
+
+    // Cache group membership so we query it once per group, not once
+    // per finding.
+    var membersByGroup = {};
+
+    function membersOf(groupId) {
+        if (membersByGroup[groupId]) {
+            return membersByGroup[groupId];
+        }
+        var list = [];
+        var mem = new GlideRecord(MEMBER);
+        mem.addQuery('peer_group', groupId);
+        mem.addQuery('computed_on', memGen);
+        mem.query();
+        while (mem.next()) {
+            list.push(mem.getValue('user'));
+        }
+        membersByGroup[groupId] = list;
+        return list;
+    }
+
+    var checked = 0;
+    var mismatches = 0;
+    var subjectMissing = 0;
+    var roleTally = {};
+    var groupTally = {};
+
+    var f = new GlideRecord(FINDING);
+    f.addQuery('computed_on', findGen);
+    f.query();
+
+    while (f.next()) {
+        checked++;
+
+        var groupId   = f.getValue('peer_group');
+        var roleId    = f.getValue('role');
+        var userId    = f.getValue('user');
+        var storedPC  = parseInt(f.getValue('peer_count'), 10);
+        var storedGS  = parseInt(f.getValue('group_size'), 10);
+
+        var members = membersOf(groupId);
+
+        // Distinct holders of this role within the group. Distinct,
+        // not row count: multi-path grants produce several rows for
+        // one holder.
+        var holders = {};
+        var inv = new GlideRecord(INVENTORY);
+        inv.addQuery('user', 'IN', members.join(','));
+        inv.addQuery('role', roleId);
+        inv.addQuery('computed_on', invGen);
+        inv.query();
+        while (inv.next()) {
+            holders[inv.getValue('user')] = true;
+        }
+
+        var distinctHolders = 0;
+        for (var h in holders) {
+            if (holders.hasOwnProperty(h)) {
+                distinctHolders++;
+            }
+        }
+
+        var expectedPC = distinctHolders - 1;
+        var expectedGS = members.length - 1;
+
+        if (expectedPC !== storedPC || expectedGS !== storedGS) {
+            mismatches++;
+            gs.warn('PANTHEON VERIFY | MISMATCH | ' + f.getValue('reason') +
+                    ' | stored pc=' + storedPC + ' gs=' + storedGS +
+                    ' | recounted pc=' + expectedPC + ' gs=' + expectedGS);
+        }
+
+        // The subject must hold the role they were flagged for. If
+        // this fires, the finding is against a grant the user does
+        // not have, which would be a serious logic error.
+        if (holders[userId] !== true) {
+            subjectMissing++;
+            gs.error('PANTHEON VERIFY | SUBJECT NOT A HOLDER | user=' + userId +
+                     ' role=' + roleId + ' | ' + f.getValue('reason'));
+        }
+
+        var roleName = f.getDisplayValue('role') || roleId;
+        roleTally[roleName] = (roleTally[roleName] || 0) + 1;
+
+        var groupName = f.getDisplayValue('peer_group') || groupId;
+        groupTally[groupName] = (groupTally[groupName] || 0) + 1;
+    }
+
+    gs.info('PANTHEON VERIFY | checked=' + checked +
+            ' mismatches=' + mismatches +
+            ' subjectNotHolder=' + subjectMissing);
+
+    function report(label, tally) {
+        var rows = [];
+        for (var k in tally) {
+            if (tally.hasOwnProperty(k)) {
+                rows.push({ name: k, n: tally[k] });
+            }
+        }
+        rows.sort(function (a, b) { return b.n - a.n; });
+        for (var i = 0; i < rows.length; i++) {
+            gs.info('PANTHEON VERIFY | ' + label + ' | ' +
+                    rows[i].n + ' | ' + rows[i].name);
+        }
+        gs.info('PANTHEON VERIFY | distinct ' + label + 's=' + rows.length);
+    }
+
+    report('role', roleTally);
+    report('group', groupTally);
+
+})();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-12 11:59:08</sys_created_on>
+        <sys_id>878d32d79366c710fca235018bba1013</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Verify outlier findings against grant in</sys_name>
+        <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
+        <sys_update_name>sys_script_fix_878d32d79366c710fca235018bba1013</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-12 11:59:08</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
