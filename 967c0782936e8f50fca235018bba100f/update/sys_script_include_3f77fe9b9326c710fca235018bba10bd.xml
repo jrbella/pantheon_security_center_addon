@@ -195,7 +195,7 @@ OutlierEvaluator.prototype = {
                 this._roleNames[gr.getUniqueValue()] = gr.getValue('name');
             }
         }
-        return this._roleNames[roleId] || roleId;
+        return this._roleNames[roleId] || '[deleted role]';
     },
 
     // Highest computed_on on a table = current generation. Returns
@@ -243,13 +243,13 @@ OutlierEvaluator.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-08-12 11:38:17</sys_created_on>
         <sys_id>3f77fe9b9326c710fca235018bba10bd</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>OutlierEvaluator</sys_name>
         <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
         <sys_update_name>sys_script_include_3f77fe9b9326c710fca235018bba10bd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-08-23 13:56:47</sys_updated_on>
+        <sys_updated_on>2026-08-24 12:24:47</sys_updated_on>
     </sys_script_include>
 </record_update>

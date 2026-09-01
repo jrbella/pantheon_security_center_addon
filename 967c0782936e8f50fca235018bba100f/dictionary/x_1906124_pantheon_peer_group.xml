@@ -4,6 +4,6 @@
         <element label="Group key" max_length="40" name="group_key" type="string"/>
         <element label="Computed on" max_length="40" name="computed_on" type="glide_date_time"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
-        <element label="Label" max_length="40" name="label" type="string"/>
+        <element display="true" label="Label" max_length="40" name="label" type="string"/>
     </element>
 </database>

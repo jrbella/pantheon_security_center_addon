@@ -770,7 +770,7 @@
             },
             "columns": {
                 "type": "JSON_LITERAL",
-                "value": "user,role,reason,peer_count,peer_group,computed_on"
+                "value": ""
             },
             "currentPage": {
                 "type": "JSON_LITERAL",
@@ -897,7 +897,7 @@
             },
             "view": {
                 "type": "JSON_LITERAL",
-                "value": ""
+                "value": "00ac3897937e4790fca235018bba10d2"
             }
         },
         "readEvaluationMode": "EAGER"
@@ -969,14 +969,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-08-23 14:21:52</sys_created_on>
         <sys_id>2608cc4b93f6c390fca235018bba105a</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>Findings default</sys_name>
         <sys_package display_value="Pantheon" source="x_1906124_pantheon">967c0782936e8f50fca235018bba100f</sys_package>
         <sys_policy/>
         <sys_scope display_value="Pantheon">967c0782936e8f50fca235018bba100f</sys_scope>
         <sys_update_name>sys_ux_macroponent_2608cc4b93f6c390fca235018bba105a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-08-23 14:39:19</sys_updated_on>
+        <sys_updated_on>2026-08-24 13:34:17</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=2608cc4b93f6c390fca235018bba105a"/>
 </record_update>
