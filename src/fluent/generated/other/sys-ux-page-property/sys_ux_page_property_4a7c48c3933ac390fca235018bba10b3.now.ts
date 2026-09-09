@@ -10,6 +10,10 @@ Record({
   "message" : "Findings",
   "code" : "",
   "comment" : ""
+}, {
+  "message" : "Blast radius",
+  "code" : "",
+  "comment" : ""
 } ]`,
         sys_domain: 'global',
         sys_domain_path: 'global',
@@ -28,6 +32,23 @@ Record({
         },
         "group": "top",
         "order": 100,
+        "badge": {},
+        "presence": {},
+        "availability": {},
+        "viewportInfo": {}
+    },
+    {
+        "id": "blast-radius",
+        "label": {
+            "translatable": true,
+            "message": "Blast radius"
+        },
+        "icon": "shield-check-fill",
+        "routeInfo": {
+            "route": "blast-radius"
+        },
+        "group": "top",
+        "order": 200,
         "badge": {},
         "presence": {},
         "availability": {},

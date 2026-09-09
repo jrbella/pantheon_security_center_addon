@@ -277,6 +277,10 @@ declare global {
                         table: 'sys_properties'
                         id: 'dfe78979dff84508b83c9cd09c564726'
                     }
+                    'blast-radius-app-route': {
+                        table: 'sys_ux_app_route'
+                        id: '55e12672c0814e9697462e381836005e'
+                    }
                     'blast-radius-evaluator': {
                         table: 'sys_script_include'
                         id: 'eba4a848cec640159acce2863c5d32a0'
@@ -284,6 +288,22 @@ declare global {
                     'blast-radius-finding-builder': {
                         table: 'sys_script_include'
                         id: '650e0369f8b64e2294cb5df1c4c9c998'
+                    }
+                    'blast-radius-macroponent': {
+                        table: 'sys_ux_macroponent'
+                        id: '25eec1dbdce94dafb430566641cae25c'
+                    }
+                    'blast-radius-module': {
+                        table: 'sys_ui_module'
+                        id: 'cc12057611d04d1e9632c5c6dcbbb265'
+                    }
+                    'blast-radius-screen': {
+                        table: 'sys_ux_screen'
+                        id: 'fc6259f8f09f4bf7a542e3b0ccd2702d'
+                    }
+                    'blast-radius-screen-type': {
+                        table: 'sys_ux_screen_type'
+                        id: 'e2d165e93a3a462e81c012d4b4d65888'
                     }
                     'blast-sensitive-table-weight': {
                         table: 'sys_properties'
@@ -565,6 +585,29 @@ declare global {
                                     name: 'x_1906124_pantheon.analyst'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '0d654096f84b42108a8ec6861bb3bbe5'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'score'
                         }
                     },
                     {
@@ -1035,6 +1078,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '324bffcdd13046068fac8e2fe8df83d1'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'entity_sys_id'
+                        }
+                    },
+                    {
                         table: 'sys_db_object'
                         id: '332c79dd3e3943ea84763c6895396330'
                         key: {
@@ -1047,6 +1113,23 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'granting_group'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list'
+                        id: '33c5cf9180644187896e08891b8a0333'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                            element: 'NULL'
+                            relationship: 'NULL'
+                            parent: 'NULL'
                         }
                     },
                     {
@@ -1076,6 +1159,29 @@ declare global {
                                     name: 'x_1906124_pantheon.admin'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '358584ea5b03492db95dcbfcb86bf37d'
+                        key: {
+                            list_id: {
+                                id: 'f10b0a67a1264834af8340d146cade79'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: '00ac3897937e4790fca235018bba10d2'
+                                        key: {
+                                            name: 'pantheon'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'computed_on'
                         }
                     },
                     {
@@ -1192,6 +1298,29 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
                             element: 'computed_on'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '3c17de4af6e845e488263e6c5a73b854'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'number'
                         }
                     },
                     {
@@ -1843,6 +1972,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '88b559b113a64a68872971e8ddb975d4'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'sensitive_table_count'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: '88de7f23715343919986cd8e4886bff8'
                         key: {
@@ -2061,6 +2213,29 @@ declare global {
                                     name: 'x_1906124_pantheon.analyst'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '956f955e289e4c34960f3bf6d8bfbe04'
+                        key: {
+                            list_id: {
+                                id: 'f10b0a67a1264834af8340d146cade79'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: '00ac3897937e4790fca235018bba10d2'
+                                        key: {
+                                            name: 'pantheon'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'score'
                         }
                     },
                     {
@@ -2283,6 +2458,29 @@ declare global {
                     },
                     {
                         table: 'sys_ui_list_element'
+                        id: 'a4a69cb17a4c44adaaf523a7657cdfb2'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'entity_type'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
                         id: 'a4d48b9793a6c710fca235018bba10dd'
                         key: {
                             list_id: {
@@ -2429,6 +2627,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'adbcb934e6cb454f922630868736b702'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'entity_name'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'afb1cc35c9c04929a9743d4b3c3e1a97'
                         key: {
@@ -2495,6 +2716,29 @@ declare global {
                             name: 'x_1906124_pantheon_peer_group_member'
                             element: 'computed_on'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'b62e940ba15a41988113f5556a0f9b52'
+                        key: {
+                            list_id: {
+                                id: 'f10b0a67a1264834af8340d146cade79'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: '00ac3897937e4790fca235018bba10d2'
+                                        key: {
+                                            name: 'pantheon'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'entity_name'
                         }
                     },
                     {
@@ -2592,6 +2836,52 @@ declare global {
                                 }
                             }
                             sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'bc66d34bff184574abe495687e86fac5'
+                        key: {
+                            list_id: {
+                                id: 'f10b0a67a1264834af8340d146cade79'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: '00ac3897937e4790fca235018bba10d2'
+                                        key: {
+                                            name: 'pantheon'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'entity_type'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'bcf520728fe04e19b0cbd164bc0db72a'
+                        key: {
+                            list_id: {
+                                id: 'f10b0a67a1264834af8340d146cade79'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: '00ac3897937e4790fca235018bba10d2'
+                                        key: {
+                                            name: 'pantheon'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'sensitive_table_count'
                         }
                     },
                     {
@@ -2900,6 +3190,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'd5fd534df0cf488d854d8d0a198a559f'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'sys_updated_on'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'd8b019df367f42f28135042dc350b5dc'
                         key: {
@@ -3060,6 +3373,46 @@ declare global {
                                     name: 'x_1906124_pantheon.user'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'f0e4e267dd234286883c7f22e81d1355'
+                        key: {
+                            list_id: {
+                                id: '33c5cf9180644187896e08891b8a0333'
+                                key: {
+                                    name: 'x_1906124_pantheon_blast_radius_finding'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'computed_on'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list'
+                        id: 'f10b0a67a1264834af8340d146cade79'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            view: {
+                                id: '00ac3897937e4790fca235018bba10d2'
+                                key: {
+                                    name: 'pantheon'
+                                }
+                            }
+                            sys_domain: 'global'
+                            element: 'NULL'
+                            relationship: 'NULL'
+                            parent: 'NULL'
                         }
                     },
                     {
