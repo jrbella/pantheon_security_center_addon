@@ -321,9 +321,25 @@ declare global {
                         table: 'sys_properties'
                         id: 'bd56d1ac59564c4a85fca67234901373'
                     }
+                    'debt-aging-weight': {
+                        table: 'sys_properties'
+                        id: '6ba3b4a97c464d1fa2bcd0e47f962e17'
+                    }
                     'debt-dormancy-days': {
                         table: 'sys_properties'
                         id: '05ca698de43a47a5b255b4248f5988fb'
+                    }
+                    'debt-dormancy-weight': {
+                        table: 'sys_properties'
+                        id: 'c8743aca425c45ab9a719da022f25072'
+                    }
+                    'debt-score-calculator': {
+                        table: 'sys_script_include'
+                        id: 'e2dacbf966b84fbabbfb87da8950b837'
+                    }
+                    'debt-snapshot-builder': {
+                        table: 'sys_script_include'
+                        id: 'fc34c1aa53204a18814f4f389d3a0304'
                     }
                     ea088c0b93f6c390fca235018bba106e: {
                         table: 'sys_ux_app_route'
@@ -360,6 +376,10 @@ declare global {
                     package_json: {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
+                    }
+                    'seed-debt-snapshot-history': {
+                        table: 'sys_script_fix'
+                        id: '641d24ee5f29474b99275c65c24e81bc'
                     }
                     'usage-signal-builder': {
                         table: 'sys_script_include'
@@ -735,6 +755,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_number'
+                        id: '234defe594b648a38b7b08db405256c4'
+                        key: {
+                            category: 'x_1906124_pantheon_debt_snapshot'
+                            prefix: 'DBT'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: '23cf08b34e534c1c94f40b146c9a96eb'
                         key: {
@@ -848,6 +876,14 @@ declare global {
                                     name: 'x_1906124_pantheon.admin'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '2dbde7bef9694763a1c9f8974688d612'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'number'
                         }
                     },
                     {
@@ -1003,6 +1039,13 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
                             element: 'computed_on'
+                        }
+                    },
+                    {
+                        table: 'sys_db_object'
+                        id: '3e9e75a52558421faf109bd05e7a0b52'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
                         }
                     },
                     {
@@ -1199,6 +1242,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '59729bed92344511903f2a256c167161'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'quarter'
+                        }
+                    },
+                    {
                         table: 'sys_ui_element'
                         id: '5c2d9fc293ee8f50fca235018bba10cc'
                         key: {
@@ -1291,6 +1342,15 @@ declare global {
                                     name: 'x_1906124_pantheon.reader'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '64bed177f3c34344832977322426d173'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'computed_on'
+                            language: 'en'
                         }
                     },
                     {
@@ -1408,6 +1468,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '7689dd3ea9a2449f83855e36cc37af85'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'NULL'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_ui_element'
                         id: '781f006293620310fca235018bba10e1'
                         key: {
@@ -1470,6 +1539,14 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'source_type'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '7b19265850684a7e85914773a759539e'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'score'
                         }
                     },
                     {
@@ -1560,6 +1637,15 @@ declare global {
                                     name: 'x_1906124_pantheon.admin'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '893ad46822e2483fbd55db32563bad46'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'score'
+                            language: 'en'
                         }
                     },
                     {
@@ -1890,6 +1976,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'ua_table_licensing_config'
+                        id: 'a2ff52d7cb3b4f04b7a703684d79a7de'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                        }
+                    },
+                    {
                         table: 'sys_number'
                         id: 'a41f006293620310fca235018bba1078'
                         key: {
@@ -2162,6 +2255,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'b9f1824b55604bd68cc5a44a2af58098'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'quarter'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'bb232f2c0aef45469bec5700f5b622da'
                         key: {
@@ -2244,6 +2346,14 @@ declare global {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'is_inherited'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'c3e14929d6c74553a65d8727cfe9c251'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'NULL'
                         }
                     },
                     {
@@ -2487,6 +2597,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'e0ef170be9054c7f9af7502d8a380e60'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'computed_on'
+                        }
+                    },
+                    {
                         table: 'sys_security_acl_role'
                         id: 'e1134c129326cf50fca235018bba10f7'
                         deleted: true
@@ -2609,6 +2727,15 @@ declare global {
                         id: 'f71d9fc293ee8f50fca235018bba1065'
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'f9a84189826e4694afcdaff8cf1c2ff7'
+                        key: {
+                            name: 'x_1906124_pantheon_debt_snapshot'
+                            element: 'number'
+                            language: 'en'
                         }
                     },
                     {
