@@ -87,5 +87,28 @@ export const x_1906124_pantheon_grant_inventory = Table({
         computed_on: DateTimeColumn({
             maxLength: 40,
         }),
+        last_exercised: DateTimeColumn({
+            label: 'Last exercised',
+            maxLength: 40,
+        }),
+        grant_class: ChoiceColumn({
+            label: 'Grant class',
+            choices: {
+                active: {
+                    label: 'active',
+                    sequence: 0,
+                },
+                aging: {
+                    label: 'aging',
+                    sequence: 1,
+                },
+                dormant: {
+                    label: 'dormant',
+                    sequence: 2,
+                },
+            },
+            dropdown: 'dropdown_without_none',
+            maxLength: 40,
+        }),
     },
 })

@@ -265,6 +265,10 @@ declare global {
                         table: 'sys_scope_privilege'
                         id: 'ba5accde9326cf50fca235018bba10cc'
                     }
+                    'backfill-usage-signal-and-grant-class': {
+                        table: 'sys_script_fix'
+                        id: 'acc4182cf7614e28b340d83a29275056'
+                    }
                     bom_json: {
                         table: 'sys_module'
                         id: 'eea3497011584c75a80cfb13a273cfb6'
@@ -313,6 +317,14 @@ declare global {
                         table: 'sys_scope_privilege'
                         id: 'dcd7974a93ae8f50fca235018bba1054'
                     }
+                    'debt-aging-days': {
+                        table: 'sys_properties'
+                        id: 'bd56d1ac59564c4a85fca67234901373'
+                    }
+                    'debt-dormancy-days': {
+                        table: 'sys_properties'
+                        id: '05ca698de43a47a5b255b4248f5988fb'
+                    }
                     ea088c0b93f6c390fca235018bba106e: {
                         table: 'sys_ux_app_route'
                         id: 'ea088c0b93f6c390fca235018bba106e'
@@ -341,9 +353,17 @@ declare global {
                         table: 'sys_security_acl'
                         id: 'fd1fc06293620310fca235018bba1017'
                     }
+                    'grant-class-calculator': {
+                        table: 'sys_script_include'
+                        id: '4590aa0e743244d6847e4d26d1201997'
+                    }
                     package_json: {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
+                    }
+                    'usage-signal-builder': {
+                        table: 'sys_script_include'
+                        id: 'f2c46ad4c4794de4b7c5e540b1befbcd'
                     }
                 }
                 composite: [
@@ -715,6 +735,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice_set'
+                        id: '23cf08b34e534c1c94f40b146c9a96eb'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: '24d48b9793a6c710fca235018bba10dc'
                         key: {
@@ -730,6 +758,17 @@ declare global {
                                 }
                             }
                             element: 'reason'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '2814e13d598445d09ab269a59e3f7853'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
+                            value: 'active'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -1255,6 +1294,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '650db387e71b4094917172f5365ac31b'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'last_exercised'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: '686f134a93ee8f50fca235018bba10e6'
                         key: {
@@ -1669,6 +1716,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '97a4b99ff7334bfab9d99b27fcd1a05b'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
+                        }
+                    },
+                    {
                         table: 'sys_ui_section'
                         id: '9813001693e2cf50fca235018bba1013'
                         key: {
@@ -1887,6 +1942,17 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'a8064dce6b004ca3ab9a6d72c2cf98b9'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
+                            value: 'aging'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: 'a8d48b9793a6c710fca235018bba10dc'
                         key: {
@@ -1976,6 +2042,17 @@ declare global {
                                     name: 'x_1906124_pantheon.analyst'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'afb1cc35c9c04929a9743d4b3c3e1a97'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
+                            value: 'dormant'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -2141,6 +2218,15 @@ declare global {
                                 }
                             }
                             element: 'sys_updated_on'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'c0935e35ed924d88808346de958d0b14'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'last_exercised'
+                            language: 'en'
                         }
                     },
                     {
@@ -2351,6 +2437,15 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'number'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'd8d7a6c734e34cc18750a06f3dc5b243'
+                        key: {
+                            name: 'x_1906124_pantheon_grant_inventory'
+                            element: 'grant_class'
                             language: 'en'
                         }
                     },
