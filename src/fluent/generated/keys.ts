@@ -269,6 +269,26 @@ declare global {
                         table: 'sys_script_fix'
                         id: 'acc4182cf7614e28b340d83a29275056'
                     }
+                    'blast-hop-weight': {
+                        table: 'sys_properties'
+                        id: 'f9f36c34f92e4d16a0fc359310ca70c0'
+                    }
+                    'blast-impersonation-weight': {
+                        table: 'sys_properties'
+                        id: 'dfe78979dff84508b83c9cd09c564726'
+                    }
+                    'blast-radius-evaluator': {
+                        table: 'sys_script_include'
+                        id: 'eba4a848cec640159acce2863c5d32a0'
+                    }
+                    'blast-radius-finding-builder': {
+                        table: 'sys_script_include'
+                        id: '650e0369f8b64e2294cb5df1c4c9c998'
+                    }
+                    'blast-sensitive-table-weight': {
+                        table: 'sys_properties'
+                        id: 'c1977cc6d092433492a979e27ad139bb'
+                    }
                     bom_json: {
                         table: 'sys_module'
                         id: 'eea3497011584c75a80cfb13a273cfb6'
@@ -377,13 +397,31 @@ declare global {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
                     }
+                    'run-blast-radius-verification': {
+                        table: 'sys_script_fix'
+                        id: 'a4069f57a9544924bae8d7c045009e57'
+                    }
                     'seed-debt-snapshot-history': {
                         table: 'sys_script_fix'
                         id: '641d24ee5f29474b99275c65c24e81bc'
                     }
+                    'seed-sensitive-table-register': {
+                        table: 'sys_script_fix'
+                        id: '268d242fba7c413c83ac0a31f7c61664'
+                    }
                     'usage-signal-builder': {
                         table: 'sys_script_include'
                         id: 'f2c46ad4c4794de4b7c5e540b1befbcd'
+                    }
+                    'verify-blast-radius-pipeline': {
+                        table: 'sys_script_fix'
+                        id: '86031295d2a44c1a95bbbbccc31307dd'
+                        deleted: true
+                    }
+                    'zz-blast-radius-diagnostic': {
+                        table: 'sys_script_fix'
+                        id: '898e3f499d594c789d762e014dd92ee8'
+                        deleted: true
                     }
                 }
                 composite: [
@@ -423,6 +461,49 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_choice_set'
+                        id: '0196a1e96d69455a810e0d003d275da2'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '021a0bb94e7f435188d8d4c5fa46e7f8'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
+                            value: 'high'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '026ffe275dbd445bb8bd9131e176a655'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '0540221e44134ac19a87e84cd6410323'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'reason'
+                        }
+                    },
+                    {
+                        table: 'sys_db_object'
+                        id: '07fc69c216d845279ca0ff00a85a07a6'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
                         }
                     },
                     {
@@ -508,6 +589,21 @@ declare global {
                         id: '1062b6672b164acb8173e5ff01c77ee1'
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
+                        }
+                    },
+                    {
+                        table: 'ua_table_licensing_config'
+                        id: '11b3ba5e1e494d618b56c836f2c41f2a'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '11bc173eab584ae58f4733faf355aa63'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'table_name'
                         }
                     },
                     {
@@ -682,6 +778,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '1a2ea8a6ac104926ad55f818d6cabf74'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'computed_on'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '1d117e5473d84a09bdd9d4655baa5c73'
                         key: {
@@ -789,6 +894,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '269a9aee06e945f785c203a6f1c83995'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'reason'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: '2814e13d598445d09ab269a59e3f7853'
                         key: {
@@ -837,6 +951,14 @@ declare global {
                                     name: 'x_1906124_pantheon.user'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_number'
+                        id: '2b17acbfd3424d5c89abbbf1b94b87b9'
+                        key: {
+                            category: 'x_1906124_pantheon_sensitive_table_register'
+                            prefix: 'SEN'
                         }
                     },
                     {
@@ -913,6 +1035,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_db_object'
+                        id: '332c79dd3e3943ea84763c6895396330'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '337a897edf9f40f88c2cb355987a6d69'
                         key: {
@@ -926,6 +1055,14 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'label'
+                        }
+                    },
+                    {
+                        table: 'sys_index'
+                        id: '34ff0d48b99f47e4a467a638db1ca509'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_blast_radius_finding'
+                            col_name_string: 'entity_type,entity_sys_id'
                         }
                     },
                     {
@@ -990,6 +1127,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_number'
+                        id: '37557f712c034ab0990608200b421c27'
+                        key: {
+                            category: 'x_1906124_pantheon_blast_radius_finding'
+                            prefix: 'BLR'
+                        }
+                    },
+                    {
                         table: 'ua_table_licensing_config'
                         id: '3775c8569326cf50fca235018bba10db'
                         key: {
@@ -1002,6 +1147,14 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group_member'
                             element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '3995755a39334c1293326f40025f6e39'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_name'
                         }
                     },
                     {
@@ -1173,6 +1326,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '482672bace7c4ba5964cb6f75c4535b7'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'number'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: '4885809e93a2cf50fca235018bba1020'
                         key: {
@@ -1200,11 +1361,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '49eb471ef76e4ecebdd222d5266e2144'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'NULL'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_index'
                         id: '4a021aedc6ad4e61a2ae9f2c5434d204'
                         key: {
                             logical_table_name: 'x_1906124_pantheon_peer_group_member'
                             col_name_string: 'peer_group'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '4b43bef3c3024f5a8a4c7b5c247e6866'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'score'
+                            language: 'en'
                         }
                     },
                     {
@@ -1223,6 +1402,14 @@ declare global {
                                 }
                             }
                             element: 'sys_created_by'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '4d8fc800550e44f99b627f5b03f94e75'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_sys_id'
                         }
                     },
                     {
@@ -1247,6 +1434,15 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
                             element: 'quarter'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '5a643e18c37b465fac9302a3628417dc'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'number'
+                            language: 'en'
                         }
                     },
                     {
@@ -1345,6 +1541,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '63d4b621af0c4ca3b68c23d9eeb125ec'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'hop_count'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '64bed177f3c34344832977322426d173'
                         key: {
@@ -1373,6 +1577,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '69098411c34e4d4fbe2a0f32fb2c9b22'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'computed_on'
+                        }
+                    },
+                    {
                         table: 'sys_security_acl_role'
                         id: '69134c129326cf50fca235018bba10d4'
                         key: {
@@ -1397,6 +1609,13 @@ declare global {
                                     name: 'x_1906124_pantheon.reader'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'ua_table_licensing_config'
+                        id: '69e09bedd40844fbb562d0de6a56f2f3'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
                         }
                     },
                     {
@@ -1491,6 +1710,14 @@ declare global {
                             }
                             element: 'number'
                             position: '0'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '786c2d68522749d9aa0a4d65175f72ba'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'NULL'
                         }
                     },
                     {
@@ -1641,6 +1868,15 @@ declare global {
                     },
                     {
                         table: 'sys_documentation'
+                        id: '892e177fe98d4aab8c04ddfc50f8d857'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_type'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
                         id: '893ad46822e2483fbd55db32563bad46'
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
@@ -1659,10 +1895,27 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '8a065c2167d84f5fb05a01d5597c790b'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '8a2ee1aa85e042869cacb61106c86cec'
                         key: {
                             name: 'x_1906124_pantheon_peer_group_member'
                             element: 'user'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '8a41f7a33ed3486e8c49b9812e9c0032'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'number'
+                            language: 'en'
                         }
                     },
                     {
@@ -1681,6 +1934,28 @@ declare global {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'granting_group'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '8c17b9fcbeea4a49a5ce8d8efe347c1f'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_type'
+                            value: 'user'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '8d59d2154da441168f6334710431985d'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_type'
+                            value: 'group'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -1950,6 +2225,22 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_index'
+                        id: '9ef37d94201c4fe081df854ef8294e37'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_sensitive_table_register'
+                            col_name_string: 'table_name'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '9fea6a746e114a03a541ead318aadf5b'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_type'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: 'a0d48b9793a6c710fca235018bba10db'
                         key: {
@@ -2149,6 +2440,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'b298231205e64e4ca42cf8353f308711'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_name'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: 'b2b9c91393fe4790fca235018bba1047'
                         key: {
@@ -2226,6 +2526,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: 'b73117545f844144b9f7e5d93a4d6eec'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'score'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: 'b783559695f34a1cb507081466edff9a'
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
@@ -2284,6 +2592,15 @@ declare global {
                                 }
                             }
                             sys_domain: 'global'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'bde280ad2e8a4312a711895c6ae0d83e'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_sys_id'
+                            language: 'en'
                         }
                     },
                     {
@@ -2346,6 +2663,14 @@ declare global {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'is_inherited'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_choice_set'
+                        id: 'c127c05990054b20832576089c96cd77'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'entity_type'
                         }
                     },
                     {
@@ -2477,12 +2802,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'ce4c35c93c8d490aa9a02d37ea62c210'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'cefd3e3a4d654954b6c22030d3f47bcb'
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'member_count'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'cf330e41733c472b8596009c26e97997'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
                         }
                     },
                     {
@@ -2509,6 +2850,23 @@ declare global {
                             element: 'NULL'
                             relationship: 'NULL'
                             parent: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'd0743397cd364a899b7cb807f6781ba5'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'table_name'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_index'
+                        id: 'd2aeb9efc949441e9e6c40ac0e9d497c'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_blast_radius_finding'
+                            col_name_string: 'score'
                         }
                     },
                     {
@@ -2639,12 +2997,32 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'e7fd933b6b16420faa6512f28c0cb2e9'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'sensitive_table_count'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'e86f134a93ee8f50fca235018bba10e9'
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'source_type'
                             value: 'group'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'ea07fc885afe471a8c06688fa0a07fb0'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
+                            value: 'medium'
                             language: 'en'
                             dependent_value: 'NULL'
                         }
@@ -2716,6 +3094,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: 'f56958825b36482e9927ca15887e53ba'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'sensitive_table_count'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: 'f67f57191475449a8594008f07c487f0'
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
@@ -2753,11 +3139,40 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'fc05ed9911784cc9ab7c85fe898f8101'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'hop_count'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'fc296e426c4845958e2dde47a9429beb'
+                        key: {
+                            name: 'x_1906124_pantheon_blast_radius_finding'
+                            element: 'NULL'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_index'
                         id: 'fecae0ffad2a4e03a7a51da0224854cd'
                         key: {
                             logical_table_name: 'x_1906124_pantheon_grant_inventory'
                             col_name_string: 'user,role'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'ff45e53fce404740848bed0bd0deb306'
+                        key: {
+                            name: 'x_1906124_pantheon_sensitive_table_register'
+                            element: 'sensitivity'
+                            value: 'low'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
