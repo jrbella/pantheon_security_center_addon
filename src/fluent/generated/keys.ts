@@ -417,6 +417,42 @@ declare global {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
                     }
+                    'rec-min-actions-to-keep': {
+                        table: 'sys_properties'
+                        id: '25bb91fd57284dccb10f180f6b751dfb'
+                    }
+                    'rec-usage-window-days': {
+                        table: 'sys_properties'
+                        id: 'e789808cfd024b0db9471c9bdb7f27dc'
+                    }
+                    'recommendation-builder': {
+                        table: 'sys_script_include'
+                        id: 'b017d00e08924072adcf2671c2d08f0a'
+                    }
+                    'recommendation-calculator': {
+                        table: 'sys_script_include'
+                        id: '76b7148c1ef1430c9ff507f2fb00b972'
+                    }
+                    'recommendation-evaluator': {
+                        table: 'sys_script_include'
+                        id: 'b4e94266bd0a4b2590aa958de8710307'
+                    }
+                    'recommendations-api': {
+                        table: 'sys_ws_definition'
+                        id: '5aa2f07b8270478fa60759f2fe089452'
+                    }
+                    'recommendations-api-apply': {
+                        table: 'sys_ws_operation'
+                        id: '40d8c549ff3c4a74b8ec415bcb6ec3b8'
+                    }
+                    'recommendations-api-get-summary': {
+                        table: 'sys_ws_operation'
+                        id: '6822ea8db21b4ee1a5b33a4fc876996c'
+                    }
+                    'recommendations-api-reject': {
+                        table: 'sys_ws_operation'
+                        id: 'cc39a40eda87409c9130567a2f4ae5a4'
+                    }
                     'run-blast-radius-dedupe-and-reverify-once': {
                         table: 'sysauto_script'
                         id: 'b7fe0cd70aee4ed488dbb99f754b38d5'
@@ -438,6 +474,10 @@ declare global {
                     'seed-sensitive-table-register': {
                         table: 'sys_script_fix'
                         id: '268d242fba7c413c83ac0a31f7c61664'
+                    }
+                    'usage-action-log-builder': {
+                        table: 'sys_script_include'
+                        id: '2d7d534606a44582a7705d51e2575c3a'
                     }
                     'usage-signal-builder': {
                         table: 'sys_script_include'
@@ -530,6 +570,21 @@ declare global {
                         }
                     },
                     {
+                        table: 'ua_table_licensing_config'
+                        id: '03c890c550e04d42b8ad83adc2166183'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '053a27e74fac4e679a2a9cdf06e07b0c'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'identity'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '0540221e44134ac19a87e84cd6410323'
                         key: {
@@ -558,6 +613,14 @@ declare global {
                                 }
                             }
                             element: 'finding'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '078d144af94e43e2b8bc90533020d587'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'role'
                         }
                     },
                     {
@@ -657,6 +720,14 @@ declare global {
                                 }
                             }
                             element: 'score'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '0e92c7d247f64126b62eef4f70d925ad'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'role_required'
                         }
                     },
                     {
@@ -888,6 +959,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ux_lib_asset'
+                        id: '1c8b70cfe4ae4f7cb0744b9f71923b43'
+                        key: {
+                            name: 'x_1906124_pantheon/recommendations-main'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '1d117e5473d84a09bdd9d4655baa5c73'
                         key: {
@@ -986,6 +1064,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '236b9ded12c547abb2d8c67e8412e551'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'role_required'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: '23cf08b34e534c1c94f40b146c9a96eb'
                         key: {
@@ -1018,6 +1105,14 @@ declare global {
                             name: 'x_1906124_pantheon_sensitive_table_register'
                             element: 'reason'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '27c6dc3707a842d886ea6eb45e3b9004'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
                         }
                     },
                     {
@@ -1142,6 +1237,15 @@ declare global {
                                     name: 'x_1906124_pantheon.reader'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '2e10f4163a0f4d4b9eb1886677a12372'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'action_type'
+                            language: 'en'
                         }
                     },
                     {
@@ -1464,6 +1568,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '3e39a979fda04e10bce6e2d72d05ded6'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'reviewed_on'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_db_object'
                         id: '3e9e42c01b9e4a769c9491f8333da9b7'
                         key: {
@@ -1676,6 +1789,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_db_object'
+                        id: '49c56d78714446d89fa9839a1b1b18c4'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '49eb471ef76e4ecebdd222d5266e2144'
                         key: {
@@ -1753,6 +1873,30 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice_set'
+                        id: '4fddef09286d424b82534e0f2994790c'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'recommendation'
+                        }
+                    },
+                    {
+                        table: 'sys_index'
+                        id: '52ba994ea575472fbcde818b31f776b5'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_role_recommendation'
+                            col_name_string: 'role'
+                        }
+                    },
+                    {
+                        table: 'sys_choice_set'
+                        id: '52f1551770a444d8b4ac3769ff8a9141'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '53a9e5278d2f41b7a4a94c42237bb894'
                         key: {
@@ -1766,6 +1910,23 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '569be8dff33b4655b5a0742880230fa6'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'reviewed_on'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '570b99f84f4e4259a1628a12fe45f6e3'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
+                            language: 'en'
                         }
                     },
                     {
@@ -1816,6 +1977,14 @@ declare global {
                             }
                             element: 'number'
                             position: '0'
+                        }
+                    },
+                    {
+                        table: 'sys_index'
+                        id: '5d28bb48bfc047358b5bbdafcdddb12e'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_usage_action_log'
+                            col_name_string: 'identity'
                         }
                     },
                     {
@@ -1905,6 +2074,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_db_object'
+                        id: '6423d50af3e5463980a0f7b0eef9e46a'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '64bed177f3c34344832977322426d173'
                         key: {
@@ -1919,6 +2095,13 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'last_exercised'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_page'
+                        id: '6745e99019cf4d8cbf69483cff7465ef'
+                        key: {
+                            endpoint: 'x_1906124_pantheon_recommendations.do'
                         }
                     },
                     {
@@ -2084,6 +2267,15 @@ declare global {
                     },
                     {
                         table: 'sys_documentation'
+                        id: '730b20e7a41e40b8a25710d3540ab534'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'current_usage_count'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
                         id: '767b11ce74d1478e8a3f86b7d0529fde'
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
@@ -2213,6 +2405,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '7ae76eb3d147444cbb885741834d6208'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '7b19265850684a7e85914773a759539e'
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
@@ -2265,6 +2465,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '803b8f48a3e14cb2a4ef91f8494a8df0'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'number'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_ux_lib_asset'
                         id: '80e537d3babd4703b0c5851cc2723841'
                         key: {
@@ -2308,11 +2517,31 @@ declare global {
                     },
                     {
                         table: 'sys_documentation'
+                        id: '83d7345ee4f6467aaa3390ce7876653f'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'justification'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
                         id: '87a44437a59b4753900281139ca8a7cc'
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'computed_on'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '87c03f65df62413d86418ef69a6857f7'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'recommendation'
+                            value: 'keep'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -2415,6 +2644,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'ua_table_licensing_config'
+                        id: '8a9d8953778345f893daad7b9251305b'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '8ac0aa26f14541b1a3b3c75e460e5b50'
                         key: {
@@ -2465,6 +2701,17 @@ declare global {
                                     name: 'x_1906124_pantheon.admin'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '8e13ae678d254b47bbb2b56ca6c0aaa7'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
+                            value: 'pending'
+                            language: 'en'
+                            dependent_value: 'NULL'
                         }
                     },
                     {
@@ -2540,6 +2787,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '941da4af6cf04814aeca60e205415a60'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_security_acl_role'
                         id: '95134c129326cf50fca235018bba10b2'
                         deleted: true
@@ -2600,6 +2855,14 @@ declare global {
                                     name: 'x_1906124_pantheon.user'
                                 }
                             }
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: '96b6ac13c6e84e65a1af71173c483ad2'
+                        key: {
+                            application_file: 'c3a1a4f6e1bc463e8d672463f75b49ad'
+                            source_artifact: 'a3e7b618d97e425c9137da8d2659f6bb'
                         }
                     },
                     {
@@ -2677,6 +2940,14 @@ declare global {
                                 }
                             }
                             element: 'sys_mod_count'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '995d9a1ad7374c78978a4dc2d4b05cf6'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'occurred_on'
                         }
                     },
                     {
@@ -2762,6 +3033,22 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '9e12601dda4f45e68b076e221da65a10'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: '9e30810a41694df7a6d24a2ae76991f2'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'reviewed_by'
+                        }
+                    },
+                    {
                         table: 'sys_index'
                         id: '9ef37d94201c4fe081df854ef8294e37'
                         key: {
@@ -2803,6 +3090,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'a228e196035949478619f89b9262268a'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'justification'
+                        }
+                    },
+                    {
                         table: 'sys_index'
                         id: 'a246089bdfd34066920fb79800a6d5e8'
                         key: {
@@ -2815,6 +3110,13 @@ declare global {
                         id: 'a2ff52d7cb3b4f04b7a703684d79a7de'
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact'
+                        id: 'a3e7b618d97e425c9137da8d2659f6bb'
+                        key: {
+                            name: 'x_1906124_pantheon_recommendations.do - BYOUI Files'
                         }
                     },
                     {
@@ -2893,6 +3195,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'a7a5ee4272294737b2b90acb9a59cf8f'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'occurred_on'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'a8064dce6b004ca3ab9a6d72c2cf98b9'
                         key: {
@@ -2944,6 +3255,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'aad01c2093344a0a92f611225dccffd7'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'recommendation'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: 'abdbad756e15469a95dccc7aa6582630'
                         key: {
@@ -2980,6 +3300,15 @@ declare global {
                                 }
                             }
                             element: 'role'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'acfdd4ecb16d49babd5fcbe0010a0505'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'identity'
+                            language: 'en'
                         }
                     },
                     {
@@ -3027,6 +3356,15 @@ declare global {
                             value: 'dormant'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'afee71e6533e420cb17f22bafa820d77'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'role'
+                            language: 'en'
                         }
                     },
                     {
@@ -3089,6 +3427,17 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'b3855ce634ba49b992b1225a20a560e4'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
+                            value: 'applied'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_security_acl_role'
                         id: 'b5138c129326cf50fca235018bba1032'
                         key: {
@@ -3107,6 +3456,15 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group_member'
                             element: 'computed_on'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'b5f15d4e83914f629cc01fe3d4735535'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'NULL'
                             language: 'en'
                         }
                     },
@@ -3216,6 +3574,17 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'bae607fdf8b9404da820144c4fb0e182'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'recommendation'
+                            value: 'remove'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'bb232f2c0aef45469bec5700f5b622da'
                         key: {
@@ -3321,6 +3690,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_number'
+                        id: 'beca88a082574764a96d2ae3ee61c04a'
+                        key: {
+                            category: 'x_1906124_pantheon_role_recommendation'
+                            prefix: 'RRC'
+                        }
+                    },
+                    {
                         table: 'sys_ui_list_element'
                         id: 'c085809e93a2cf50fca235018bba1020'
                         key: {
@@ -3370,6 +3747,24 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_blast_radius_finding'
                             element: 'entity_type'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'c325edad167a4a2ebda6037ecd5b9b3a'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'disposition'
+                            value: 'rejected'
+                            language: 'en'
+                            dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_lib_asset'
+                        id: 'c3a1a4f6e1bc463e8d672463f75b49ad'
+                        key: {
+                            name: 'x_1906124_pantheon/recommendations-main.js.map'
                         }
                     },
                     {
@@ -3493,6 +3888,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'cb538c0edc3640c2b6cfe2ffc55cec19'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'action_type'
+                        }
+                    },
+                    {
                         table: 'sys_number'
                         id: 'cc2d9fc293ee8f50fca235018bba106d'
                         key: {
@@ -3587,6 +3990,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: 'd458235f2c7f4592afb4ca7c33c48547'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'recommendation'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: 'd4942172b28b4d4b89e1053d447035c6'
                         key: {
                             name: 'x_1906124_pantheon_outlier_finding'
@@ -3639,6 +4050,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: 'd831005ab173400ea852179ebca87610'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'current_usage_count'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'd8b019df367f42f28135042dc350b5dc'
                         key: {
@@ -3654,6 +4073,23 @@ declare global {
                             name: 'x_1906124_pantheon_grant_inventory'
                             element: 'grant_class'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'dc3385d5d01941e5a7f1545331257787'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'reviewed_by'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: 'dc8eb26987df402db5b8933640445b2a'
+                        key: {
+                            application_file: '6745e99019cf4d8cbf69483cff7465ef'
+                            source_artifact: 'a3e7b618d97e425c9137da8d2659f6bb'
                         }
                     },
                     {
@@ -3691,6 +4127,15 @@ declare global {
                             value: 'revoked'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'ddeed04e77994e1e9d0457b100d17ede'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'number'
+                            language: 'en'
                         }
                     },
                     {
@@ -3828,6 +4273,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: 'e953951538f1478e9781a9b3bf29f6a8'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'identity'
+                            language: 'en'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'ea07fc885afe471a8c06688fa0a07fb0'
                         key: {
@@ -3836,6 +4290,22 @@ declare global {
                             value: 'medium'
                             language: 'en'
                             dependent_value: 'NULL'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'ece3be83091649ff9c5d2c3184a7710d'
+                        key: {
+                            name: 'x_1906124_pantheon_role_recommendation'
+                            element: 'number'
+                        }
+                    },
+                    {
+                        table: 'sys_number'
+                        id: 'ee0ff69be7ee4879acca47792fd23f8e'
+                        key: {
+                            category: 'x_1906124_pantheon_usage_action_log'
+                            prefix: 'UAL'
                         }
                     },
                     {
@@ -3992,6 +4462,23 @@ declare global {
                     },
                     {
                         table: 'sys_documentation'
+                        id: 'f839a07632fe4a61b4b98bd660e0eaed'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'NULL'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: 'f8e65d53bf07451abaec087ec678d8d2'
+                        key: {
+                            application_file: '1c8b70cfe4ae4f7cb0744b9f71923b43'
+                            source_artifact: 'a3e7b618d97e425c9137da8d2659f6bb'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
                         id: 'f9a84189826e4694afcdaff8cf1c2ff7'
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
@@ -4029,6 +4516,22 @@ declare global {
                             name: 'x_1906124_pantheon_blast_radius_finding'
                             element: 'NULL'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'fce6818bea374fab8effedaa0a4c1c79'
+                        key: {
+                            name: 'x_1906124_pantheon_usage_action_log'
+                            element: 'identity'
+                        }
+                    },
+                    {
+                        table: 'sys_index'
+                        id: 'fdaf6c696af44e2f9757b698659d0413'
+                        key: {
+                            logical_table_name: 'x_1906124_pantheon_role_recommendation'
+                            col_name_string: 'identity'
                         }
                     },
                     {
