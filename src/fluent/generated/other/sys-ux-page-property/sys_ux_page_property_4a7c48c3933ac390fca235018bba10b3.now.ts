@@ -43,7 +43,7 @@ Record({
             "translatable": true,
             "message": "Blast radius"
         },
-        "icon": "shield-check-fill",
+        "icon": "tree-flow-fill",
         "routeInfo": {
             "route": "blast-radius"
         },
