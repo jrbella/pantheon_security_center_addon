@@ -27,7 +27,10 @@ BlastRadiusEvaluator.prototype = {
      *     reachableRoles: [{ role, roleName, hopCount }, ...],
      *     sensitiveTablesReached: [{ table, sensitivity, hopCount }, ...],
      *     sensitiveTableCount: number,
-     *     hopCount: number,               // deepest hop among reached sensitive tables, 0 if none
+     *     hopCount: number,               // deepest hop reached across ALL nodes in the
+     *                                      // traversal (every reachable role plus every
+     *                                      // reached sensitive table), 0 if only directly
+     *                                      // granted roles were reached
      *     hasImpersonationEntitlement: boolean,
      *     memberCount: number|null        // group entityType only
      *   }
@@ -52,7 +55,21 @@ BlastRadiusEvaluator.prototype = {
 
         var sensitiveTablesReached = this._sensitiveTablesReached(reachable, roleIds, roleNames);
 
+        // hopCount is the finding-level aggregate: the deepest hop_distance
+        // reached across every node of the traversal, not just the sensitive
+        // tables. Sourcing it only from sensitiveTablesReached previously
+        // left it at 0 whenever every reachable sensitive table happened to
+        // be reached at hop 0 (e.g. via a directly-granted role's own ACL),
+        // even though the role hierarchy itself reached hop 1-4 -- exactly
+        // the "frozen at 0" symptom. `reachable` already holds every node's
+        // hop distance (see _expandRoles), matching what's persisted
+        // per-node in blast_radius_node.
         var hopCount = 0;
+        for (var roleId in reachable) {
+            if (reachable.hasOwnProperty(roleId) && reachable[roleId] > hopCount) {
+                hopCount = reachable[roleId];
+            }
+        }
         for (var i = 0; i < sensitiveTablesReached.length; i++) {
             if (sensitiveTablesReached[i].hopCount > hopCount) {
                 hopCount = sensitiveTablesReached[i].hopCount;

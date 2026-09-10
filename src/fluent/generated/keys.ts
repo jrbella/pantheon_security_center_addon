@@ -417,9 +417,19 @@ declare global {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
                     }
+                    'run-blast-radius-dedupe-and-reverify-once': {
+                        table: 'sysauto_script'
+                        id: 'b7fe0cd70aee4ed488dbb99f754b38d5'
+                        deleted: true
+                    }
                     'run-blast-radius-verification': {
                         table: 'sys_script_fix'
                         id: 'a4069f57a9544924bae8d7c045009e57'
+                    }
+                    'run-blast-radius-verification-once': {
+                        table: 'sysauto_script'
+                        id: 'a695809888034525abd14658107ca2f8'
+                        deleted: true
                     }
                     'seed-debt-snapshot-history': {
                         table: 'sys_script_fix'

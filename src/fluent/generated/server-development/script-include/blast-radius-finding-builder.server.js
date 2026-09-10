@@ -8,15 +8,17 @@ BlastRadiusFindingBuilder.prototype = {
 
     /**
      * Runs the full traversal + score pipeline for one entity and
-     * upserts its row in blast_radius_finding (deletes any existing
-     * row -- and its blast_radius_node children -- for this entity,
-     * then inserts fresh), then persists every individual reachable
-     * entity from the same traversal result as a blast_radius_node
-     * row referencing the new finding. Node persistence is additive
-     * detail on top of the existing aggregate -- it reads fields
-     * calculateBlastRadius() already returns (reachableRoles,
-     * sensitiveTablesReached) and does not change the score/hopCount/
-     * sensitiveTableCount calculation at all.
+     * upserts its row in blast_radius_finding -- updates the existing
+     * row in place (score/hop_count/sensitive_table_count/computed_on)
+     * if one already exists for this entity, keeping its sys_id/number
+     * stable across re-runs, and only inserts a new row when none
+     * exists yet. blast_radius_node children are always replaced fresh
+     * (traversal detail, not worth diffing), but that no longer means
+     * the finding's own identity churns on every re-run. Node
+     * persistence is additive detail on top of the existing aggregate
+     * -- it reads fields calculateBlastRadius() already returns
+     * (reachableRoles, sensitiveTablesReached) and does not change the
+     * score/hopCount/sensitiveTableCount calculation at all.
      *
      * Returns a flat summary object, primarily for the caller to log
      * (see the verification Fix Script) -- the stored records are the
@@ -28,20 +30,9 @@ BlastRadiusFindingBuilder.prototype = {
         var score = evaluator.calculateBlastRadiusScore(traversal);
         var displayName = this._resolveDisplayName(entityType, entitySysId);
 
-        this._purgeExisting(entityType, entitySysId);
+        var findingSysId = this._upsertFinding(entityType, entitySysId, displayName, score, traversal);
 
-        var gr = new GlideRecord(this.table);
-        gr.initialize();
-        gr.setWorkflow(false);
-        gr.setValue('entity_type', entityType);
-        gr.setValue('entity_sys_id', entitySysId);
-        gr.setValue('entity_name', displayName);
-        gr.setValue('score', score);
-        gr.setValue('hop_count', traversal.hopCount);
-        gr.setValue('sensitive_table_count', traversal.sensitiveTableCount);
-        gr.setValue('computed_on', new GlideDateTime());
-        var findingSysId = gr.insert();
-
+        this._purgeNodes(findingSysId);
         var nodeCount = this._storeNodes(findingSysId, traversal);
 
         return {
@@ -132,32 +123,139 @@ BlastRadiusFindingBuilder.prototype = {
         gr.insert();
     },
 
-    // Deletes any existing blast_radius_finding row for this entity, and
-    // -- first, since the finding sys_id changes on every upsert -- any
-    // blast_radius_node rows that reference it, so re-running never leaves
-    // orphaned node rows behind.
-    _purgeExisting: function (entityType, entitySysId) {
-        var findingIds = [];
-        var findGr = new GlideRecord(this.table);
-        findGr.addQuery('entity_type', entityType);
-        findGr.addQuery('entity_sys_id', entitySysId);
-        findGr.query();
-        while (findGr.next()) {
-            findingIds.push(findGr.getUniqueValue());
-        }
-
-        if (findingIds.length > 0) {
-            var nodeGr = new GlideRecord(this.nodeTable);
-            nodeGr.addQuery('finding', 'IN', findingIds.join(','));
-            nodeGr.setWorkflow(false);
-            nodeGr.deleteMultiple();
-        }
-
+    // Upserts the one blast_radius_finding row for this entity. Queries by
+    // entity_type + entity_sys_id (newest computed_on first): if a row
+    // already exists, updates it in place and returns its (unchanged)
+    // sys_id -- this is what keeps the record's sys_id/number stable
+    // across re-runs instead of churning on every computeAndStore call.
+    // If more than one existing row is found (stale duplicates from
+    // before this method upserted, or from a race), the most recently
+    // computed one is kept/updated and the rest are purged via
+    // _deleteFindingAndNodes -- the same helper dedupeFindings() uses for
+    // its one-time cleanup pass. Only inserts a new row when none exists.
+    _upsertFinding: function (entityType, entitySysId, displayName, score, traversal) {
         var gr = new GlideRecord(this.table);
         gr.addQuery('entity_type', entityType);
         gr.addQuery('entity_sys_id', entitySysId);
-        gr.setWorkflow(false);
-        gr.deleteMultiple();
+        gr.orderByDesc('computed_on');
+        gr.query();
+
+        var keeperSysId = null;
+        while (gr.next()) {
+            if (keeperSysId === null) {
+                keeperSysId = gr.getUniqueValue();
+            } else {
+                this._deleteFindingAndNodes(gr.getUniqueValue());
+            }
+        }
+
+        if (keeperSysId !== null) {
+            var keeper = new GlideRecord(this.table);
+            keeper.get(keeperSysId);
+            keeper.setWorkflow(false);
+            keeper.setValue('entity_name', displayName);
+            keeper.setValue('score', score);
+            keeper.setValue('hop_count', traversal.hopCount);
+            keeper.setValue('sensitive_table_count', traversal.sensitiveTableCount);
+            keeper.setValue('computed_on', new GlideDateTime());
+            keeper.update();
+            return keeperSysId;
+        }
+
+        var newGr = new GlideRecord(this.table);
+        newGr.initialize();
+        newGr.setWorkflow(false);
+        newGr.setValue('entity_type', entityType);
+        newGr.setValue('entity_sys_id', entitySysId);
+        newGr.setValue('entity_name', displayName);
+        newGr.setValue('score', score);
+        newGr.setValue('hop_count', traversal.hopCount);
+        newGr.setValue('sensitive_table_count', traversal.sensitiveTableCount);
+        newGr.setValue('computed_on', new GlideDateTime());
+        return newGr.insert();
+    },
+
+    // Deletes every blast_radius_node row referencing this finding, ahead
+    // of _storeNodes writing a fresh set -- traversal detail is always
+    // replaced wholesale on recompute, never diffed.
+    _purgeNodes: function (findingSysId) {
+        var nodeGr = new GlideRecord(this.nodeTable);
+        nodeGr.addQuery('finding', findingSysId);
+        nodeGr.setWorkflow(false);
+        nodeGr.deleteMultiple();
+    },
+
+    // Deletes one blast_radius_finding row and its blast_radius_node
+    // children. Shared by _upsertFinding (purging surplus duplicates found
+    // mid-upsert) and dedupeFindings (the one-time cleanup pass). Returns
+    // the number of node rows deleted, for cleanup reporting.
+    _deleteFindingAndNodes: function (findingSysId) {
+        var nodeGr = new GlideRecord(this.nodeTable);
+        nodeGr.addQuery('finding', findingSysId);
+        nodeGr.setWorkflow(false);
+        nodeGr.query();
+        var nodeCount = 0;
+        while (nodeGr.next()) {
+            nodeGr.deleteRecord();
+            nodeCount++;
+        }
+
+        var findingGr = new GlideRecord(this.table);
+        findingGr.setWorkflow(false);
+        if (findingGr.get(findingSysId)) {
+            findingGr.deleteRecord();
+        }
+
+        return nodeCount;
+    },
+
+    /**
+     * One-time cleanup for duplicate blast_radius_finding rows left over
+     * from before computeAndStore upserted (each earlier run inserted a
+     * fresh row instead of updating one in place). Groups all finding
+     * rows by entity_type + entity_sys_id, keeps the most recently
+     * computed row per entity, and deletes the rest along with their
+     * orphaned blast_radius_node children. Safe to call any time -- a
+     * no-op once there are no duplicates left, since every entity then
+     * has exactly one group member.
+     *
+     * Returns { entitiesWithDuplicates, deletedFindings, deletedNodes }.
+     */
+    dedupeFindings: function () {
+        var byEntity = {};
+        var gr = new GlideRecord(this.table);
+        gr.orderByDesc('computed_on');
+        gr.query();
+        while (gr.next()) {
+            var key = gr.getValue('entity_type') + ':' + gr.getValue('entity_sys_id');
+            if (!byEntity[key]) {
+                byEntity[key] = [];
+            }
+            byEntity[key].push(gr.getUniqueValue());
+        }
+
+        var entitiesWithDuplicates = 0;
+        var deletedFindings = 0;
+        var deletedNodes = 0;
+        for (var key in byEntity) {
+            if (!byEntity.hasOwnProperty(key)) {
+                continue;
+            }
+            var ids = byEntity[key]; // newest-first, per the orderByDesc query above
+            if (ids.length > 1) {
+                entitiesWithDuplicates++;
+            }
+            for (var i = 1; i < ids.length; i++) {
+                deletedNodes += this._deleteFindingAndNodes(ids[i]);
+                deletedFindings++;
+            }
+        }
+
+        return {
+            entitiesWithDuplicates: entitiesWithDuplicates,
+            deletedFindings: deletedFindings,
+            deletedNodes: deletedNodes
+        };
     },
 
     _resolveDisplayName: function (entityType, entitySysId) {
