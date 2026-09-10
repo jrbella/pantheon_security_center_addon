@@ -1,0 +1,251 @@
+.pf-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: var(--now-font-family, system-ui, sans-serif);
+  background-color: rgb(var(--now-color_background--secondary, 245, 246, 247));
+}
+
+.pf-page__header {
+  padding: var(--now-static-space--lg, 1rem) var(--now-static-space--xl, 1.5rem);
+  border-bottom: 1px solid rgb(var(--now-container--border-color, 207, 213, 215));
+}
+
+.pf-page__header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf-page__body {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(300px, 3fr);
+  gap: var(--now-static-space--xl, 1.5rem);
+  padding: var(--now-static-space--xl, 1.5rem);
+  box-sizing: border-box;
+}
+
+.pf-page__main {
+  min-width: 0;
+}
+
+.pf-page__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--now-static-space--lg, 1rem);
+}
+
+@media (max-width: 900px) {
+  .pf-page__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pf__status {
+  padding: var(--now-static-space--xl, 1.5rem);
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__status--error {
+  color: rgb(var(--now-indicator--primary_critical--background-color, 229, 34, 57));
+}
+
+.pf__canvas {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(var(--now-container-card--border-color, 207, 213, 215));
+  border-radius: var(--now-container-card--border-radius, 8px);
+  padding: var(--now-static-space--lg, 1rem);
+  background-color: rgb(var(--now-container--color, 255, 255, 255));
+  box-shadow: var(--now-static-drop-shadow--sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+.pf__svg {
+  width: 100%;
+  height: auto;
+}
+
+.pf__cluster-boundary {
+  fill: rgba(var(--now-color--primary-1, 0, 128, 163), 0.04);
+  stroke: rgb(var(--now-container--border-color, 207, 213, 215));
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.pf__cluster-label {
+  text-anchor: middle;
+  font-weight: 600;
+  font-size: 13px;
+  fill: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__cluster-count {
+  text-anchor: middle;
+  font-size: 10px;
+  fill: rgb(var(--now-color_text--secondary, 75, 85, 89));
+}
+
+.pf__dot--member {
+  fill: rgb(var(--now-actionable--primary--background-color, 0, 128, 163));
+  opacity: 0.55;
+}
+
+.pf__dot--outlier {
+  fill: rgb(var(--now-indicator--primary_critical--background-color, 229, 34, 57));
+  stroke: rgb(var(--now-color_background--primary, 255, 255, 255));
+  stroke-width: 1.5;
+  transition: r 120ms ease;
+}
+
+.pf__dot--selected {
+  stroke: rgb(var(--now-color_text--primary, 16, 23, 26));
+  stroke-width: 2;
+}
+
+.pf__legend {
+  display: flex;
+  gap: var(--now-static-space--lg, 1rem);
+  margin-top: var(--now-static-space--md, 0.75rem);
+  font-size: 0.8rem;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--now-static-space--xs, 0.25rem);
+}
+
+.pf__legend-swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pf__legend-swatch--member {
+  background-color: rgb(var(--now-actionable--primary--background-color, 0, 128, 163));
+  opacity: 0.55;
+}
+
+.pf__legend-swatch--outlier {
+  background-color: rgb(var(--now-indicator--primary_critical--background-color, 229, 34, 57));
+}
+
+.pf__panel {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgb(var(--now-container-card--border-color, 207, 213, 215));
+  border-radius: var(--now-container-card--border-radius, 8px);
+  padding: var(--now-static-space--lg, 1rem);
+  background-color: rgb(var(--now-container--color, 255, 255, 255));
+  box-shadow: var(--now-static-drop-shadow--sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+.pf__panel-title {
+  font-weight: 600;
+  margin-bottom: var(--now-static-space--md, 0.75rem);
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__panel-empty {
+  font-size: 0.85rem;
+  color: rgb(var(--now-color_text--secondary, 75, 85, 89));
+}
+
+.pf__summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--now-static-space--xs, 0.25rem) 0;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__detail-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: var(--now-static-space--md, 0.75rem);
+  padding-bottom: var(--now-static-space--md, 0.75rem);
+  border-bottom: 1px solid rgb(var(--now-container--border-color, 207, 213, 215));
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__detail-group {
+  font-size: 0.8rem;
+  color: rgb(var(--now-color_text--secondary, 75, 85, 89));
+}
+
+.pf__finding {
+  padding: var(--now-static-space--sm, 0.5rem) 0;
+  border-bottom: 1px solid rgb(var(--now-container--border-color, 207, 213, 215));
+}
+
+.pf__finding:last-child {
+  border-bottom: none;
+}
+
+.pf__finding-role {
+  font-weight: 600;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__finding-reason {
+  font-size: 0.8rem;
+  color: rgb(var(--now-color_text--secondary, 75, 85, 89));
+  margin: 0.15rem 0 var(--now-static-space--sm, 0.5rem);
+}
+
+.pf__finding-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  padding: 0.1rem 0;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__status--pending {
+  color: rgb(var(--now-color_text--secondary, 75, 85, 89));
+}
+
+.pf__status--revoked {
+  color: rgb(var(--now-indicator--primary_critical--background-color, 229, 34, 57));
+  font-weight: 600;
+}
+
+.pf__status--kept {
+  color: rgb(var(--now-indicator--primary_positive--background-color, 62, 134, 0));
+  font-weight: 600;
+}
+
+.pf__tooltip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  max-width: 240px;
+  padding: var(--now-static-space--sm, 0.5rem) var(--now-static-space--md, 0.75rem);
+  border-radius: var(--now-window--border-radius, 8px);
+  border: 1px solid rgb(var(--now-window--border-color, 207, 213, 215));
+  background-color: rgb(var(--now-container-card--background-color, 255, 255, 255));
+  box-shadow: var(--now-static-drop-shadow--md);
+  font-size: 0.75rem;
+  color: rgb(var(--now-color_text--primary, 16, 23, 26));
+}
+
+.pf__tooltip-title {
+  font-weight: 600;
+  margin-bottom: var(--now-static-space--xs, 0.25rem);
+  word-break: break-word;
+}
+
+.pf__tooltip-row--warning {
+  color: rgb(var(--now-indicator--primary_critical--background-color, 229, 34, 57));
+  font-weight: 600;
+}

@@ -974,6 +974,13 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ux_lib_asset'
+                        id: '1d2ff50684c84f2a893c9cfb290410f4'
+                        key: {
+                            name: 'x_1906124_pantheon/peer-findings-main'
+                        }
+                    },
+                    {
                         table: 'sn_glider_source_artifact_m2m'
                         id: '1d464754df044784aa2ac75b4fb79270'
                         key: {
@@ -1048,6 +1055,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: '21e95a12fd3b40a08f3c5d7fb97170b4'
+                        key: {
+                            application_file: '8f1d44f74e1d4d49a02913d7d32a5d39'
+                            source_artifact: '27d1174f901b486aa4f2be35656cc1a5'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '22496deec00e431d8160627d8ad95e16'
                         key: {
@@ -1113,6 +1128,13 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_role_recommendation'
                             element: 'disposition'
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact'
+                        id: '27d1174f901b486aa4f2be35656cc1a5'
+                        key: {
+                            name: 'x_1906124_pantheon_peer_findings.do - BYOUI Files'
                         }
                     },
                     {
@@ -1708,6 +1730,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: '4493f9811f894f03a55f74b32c5ad980'
+                        key: {
+                            application_file: 'cf25b5a3d8f54c9ca0d0dd6c6e552326'
+                            source_artifact: '27d1174f901b486aa4f2be35656cc1a5'
+                        }
+                    },
+                    {
                         table: 'sys_number'
                         id: '45c9d8e339be462f9708828d21b95666'
                         key: {
@@ -1951,6 +1981,14 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_debt_snapshot'
                             element: 'quarter'
+                        }
+                    },
+                    {
+                        table: 'sn_glider_source_artifact_m2m'
+                        id: '5a113f93c68041dab9e8be7eb7a9b977'
+                        key: {
+                            application_file: '1d2ff50684c84f2a893c9cfb290410f4'
+                            source_artifact: '27d1174f901b486aa4f2be35656cc1a5'
                         }
                     },
                     {
@@ -2733,6 +2771,13 @@ declare global {
                         key: {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'group_key'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_page'
+                        id: '8f1d44f74e1d4d49a02913d7d32a5d39'
+                        key: {
+                            endpoint: 'x_1906124_pantheon_peer_findings.do'
                         }
                     },
                     {
@@ -3918,6 +3963,13 @@ declare global {
                             name: 'x_1906124_pantheon_peer_group'
                             element: 'member_count'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ux_lib_asset'
+                        id: 'cf25b5a3d8f54c9ca0d0dd6c6e552326'
+                        key: {
+                            name: 'x_1906124_pantheon/peer-findings-main.js.map'
                         }
                     },
                     {
