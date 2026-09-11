@@ -289,6 +289,18 @@ declare global {
                         table: 'sys_script_include'
                         id: '650e0369f8b64e2294cb5df1c4c9c998'
                     }
+                    'blast-radius-graph-app-route': {
+                        table: 'sys_ux_app_route'
+                        id: '1247f28db5334e7f80aa7db9ac3e0e08'
+                    }
+                    'blast-radius-graph-screen': {
+                        table: 'sys_ux_screen'
+                        id: 'b19e7f8e4f5e42c28eb7049d587ae871'
+                    }
+                    'blast-radius-graph-screen-type': {
+                        table: 'sys_ux_screen_type'
+                        id: 'a54752a82ef246628f4a53ea9441d490'
+                    }
                     'blast-radius-macroponent': {
                         table: 'sys_ux_macroponent'
                         id: '25eec1dbdce94dafb430566641cae25c'
@@ -417,6 +429,18 @@ declare global {
                         table: 'sys_module'
                         id: '694035767f6048f39113b8afe6c6544b'
                     }
+                    'peer-findings-app-route': {
+                        table: 'sys_ux_app_route'
+                        id: 'bfffc960458b468b98b0c571cc51103b'
+                    }
+                    'peer-findings-screen': {
+                        table: 'sys_ux_screen'
+                        id: 'bb3a9e5850044ff6befd933c9832b06a'
+                    }
+                    'peer-findings-screen-type': {
+                        table: 'sys_ux_screen_type'
+                        id: 'd753fcf707764911ae886d88bfca7462'
+                    }
                     'rec-min-actions-to-keep': {
                         table: 'sys_properties'
                         id: '25bb91fd57284dccb10f180f6b751dfb'
@@ -452,6 +476,18 @@ declare global {
                     'recommendations-api-reject': {
                         table: 'sys_ws_operation'
                         id: 'cc39a40eda87409c9130567a2f4ae5a4'
+                    }
+                    'recommendations-app-route': {
+                        table: 'sys_ux_app_route'
+                        id: '1b4a7738cd6e48c992c99cd6992c3b79'
+                    }
+                    'recommendations-screen': {
+                        table: 'sys_ux_screen'
+                        id: '896196c3452442f7a905cab9c0efd84e'
+                    }
+                    'recommendations-screen-type': {
+                        table: 'sys_ux_screen_type'
+                        id: '50cad3875d2a4f9eafbfece90d649c14'
                     }
                     'run-blast-radius-dedupe-and-reverify-once': {
                         table: 'sysauto_script'

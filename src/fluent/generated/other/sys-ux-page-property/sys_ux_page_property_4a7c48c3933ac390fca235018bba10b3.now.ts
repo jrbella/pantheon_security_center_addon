@@ -14,6 +14,18 @@ Record({
   "message" : "Blast radius",
   "code" : "",
   "comment" : ""
+}, {
+  "message" : "Blast Radius Graph",
+  "code" : "",
+  "comment" : ""
+}, {
+  "message" : "Recommendations",
+  "code" : "",
+  "comment" : ""
+}, {
+  "message" : "Peer Findings",
+  "code" : "",
+  "comment" : ""
 } ]`,
         sys_domain: 'global',
         sys_domain_path: 'global',
@@ -49,6 +61,57 @@ Record({
         },
         "group": "top",
         "order": 200,
+        "badge": {},
+        "presence": {},
+        "availability": {},
+        "viewportInfo": {}
+    },
+    {
+        "id": "blast-radius-graph",
+        "label": {
+            "translatable": true,
+            "message": "Blast Radius Graph"
+        },
+        "icon": "chart-dependency-fill",
+        "routeInfo": {
+            "route": "blast-radius-graph"
+        },
+        "group": "top",
+        "order": 300,
+        "badge": {},
+        "presence": {},
+        "availability": {},
+        "viewportInfo": {}
+    },
+    {
+        "id": "recommendations",
+        "label": {
+            "translatable": true,
+            "message": "Recommendations"
+        },
+        "icon": "lightbulb-fill",
+        "routeInfo": {
+            "route": "recommendations"
+        },
+        "group": "top",
+        "order": 400,
+        "badge": {},
+        "presence": {},
+        "availability": {},
+        "viewportInfo": {}
+    },
+    {
+        "id": "peer-findings",
+        "label": {
+            "translatable": true,
+            "message": "Peer Findings"
+        },
+        "icon": "user-group-fill",
+        "routeInfo": {
+            "route": "peer-findings"
+        },
+        "group": "top",
+        "order": 500,
         "badge": {},
         "presence": {},
         "availability": {},

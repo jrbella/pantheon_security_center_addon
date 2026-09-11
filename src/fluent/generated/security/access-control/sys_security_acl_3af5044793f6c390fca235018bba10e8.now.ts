@@ -6,5 +6,5 @@ Acl({
     type: 'ux_route',
     operation: 'read',
     roles: ['x_1906124_pantheon.reader'],
-    name: 'x.1906124.pantheon.*',
+    name: 'now.pantheon.*',
 })
